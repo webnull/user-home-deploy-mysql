@@ -63,8 +63,9 @@ echo "Mounting image using mount.sh tool"
 
 echo "Image /home/$1/.mysql-deployment/image.img is ready"
 
+host=`hostname`
 echo "Adding entry to sudoers"
-echo "$1 localhost = (root) NOPASSWD: $DIR/mount.sh" > "/etc/sudoers.d/user-home-deploy-mysql-by-$1"
+echo "$1 $host = (root) NOPASSWD: $DIR/mount.sh" > "/etc/sudoers.d/user-home-deploy-mysql-by-$1"
 chmod 0440 "/etc/sudoers.d/user-home-deploy-mysql-by-$1"
 
 echo "[Desktop Entry]
