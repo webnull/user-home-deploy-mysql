@@ -31,11 +31,11 @@ then
     mkdir "/home/$1/.mysql-deployment/"
 fi
 
-#if [ -e "/home/$1/.mysql-deployment/image.img" ]
-#then
-#    echo "/home/$1/.mysql-deployment/image.img already exists, it seems that you already have deployed MySQL server on this account, remember - if its mounted on /var/lib/mysql then removing this file will cause loss of data in /var/lib/mysql"
-#    exit
-#fi
+if [ -e "/home/$1/.mysql-deployment/image.img" ]
+then
+    echo "/home/$1/.mysql-deployment/image.img already exists, it seems that you already have deployed MySQL server on this account, remember - if its mounted on /var/lib/mysql then removing this file will cause loss of data in /var/lib/mysql"
+    exit
+fi
 
 if [ -e /etc/init.d/mysql ] ;
 then
@@ -45,10 +45,10 @@ fi
 size=$(($2*1024*1024))
 
 echo "Creating a image of $2 size ($size kilobytes)" 
-#dd if=/dev/zero of="/home/$1/.mysql-deployment/image.img" bs=1k count=$size
+dd if=/dev/zero of="/home/$1/.mysql-deployment/image.img" bs=1k count=$size
 
 echo "Creating ext4 filesystem"
-#mkfs.ext4 "/home/$1/.mysql-deployment/image.img"
+mkfs.ext4 "/home/$1/.mysql-deployment/image.img"
 
 echo "Moving /var/lib/mysql content to image"
 "$DIR/mount.sh" "$1" tmp
