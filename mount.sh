@@ -28,3 +28,4 @@ fi
 
 mkdir /var/lib/mysql -p
 mount "/home/$1/.mysql-deployment/image.img" "$MySQLDir" -o barrier=0,noatime,discard
+chown mysql:mysql /var/lib/mysql
